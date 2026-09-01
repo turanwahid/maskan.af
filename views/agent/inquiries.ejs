@@ -1,0 +1,26 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main>
+  <section class="section">
+    <h1 class="section-title">Buyer Inquiries</h1>
+
+    <% if (inquiries.length === 0) { %>
+      <p class="empty-state">No inquiries yet. They'll show up here when a buyer contacts you from one of your listings.</p>
+    <% } else { %>
+      <% inquiries.forEach(inquiry => { %>
+        <div class="inquiry-card">
+          <h3>
+            <a href="/listings/<%= inquiry.property_id %>"><%= inquiry.property_title %></a>
+            <span class="badge-status"><%= inquiry.status %></span>
+          </h3>
+          <p><strong><%= inquiry.name %></strong> — <a href="mailto:<%= inquiry.email %>"><%= inquiry.email %></a><% if (inquiry.phone) { %> — <%= inquiry.phone %><% } %></p>
+          <p class="property-description"><%= inquiry.message %></p>
+          <p class="property-location"><%= new Date(inquiry.created_at).toLocaleString("en-CH") %></p>
+        </div>
+      <% }) %>
+    <% } %>
+  </section>
+</main>
+
+<%- include("../partials/foot") %>

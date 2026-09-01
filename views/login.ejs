@@ -1,0 +1,25 @@
+<%- include("partials/head") %>
+<%- include("partials/nav") %>
+
+<main>
+  <section class="section auth-section">
+    <div class="auth-card">
+      <h1>Log In</h1>
+      <form action="/login" method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Log In</button>
+      </form>
+      <p class="auth-switch">No account? <a href="/register">Sign up</a></p>
+      <p class="auth-hint">Demo admin: admin@newhome.ch / admin123 &middot; Demo user: demo@newhome.ch / demo1234</p>
+    </div>
+  </section>
+</main>
+
+<%- include("partials/foot") %>

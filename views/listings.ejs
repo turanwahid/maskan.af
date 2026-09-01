@@ -1,0 +1,23 @@
+<%- include("partials/head") %>
+<%- include("partials/nav") %>
+
+<main>
+  <section class="section">
+    <h1 class="section-title">Listings</h1>
+    <%- include("partials/search-form") %>
+
+    <p class="results-count"><%= listings.length %> propert<%= listings.length === 1 ? "y" : "ies" %> found</p>
+
+    <% if (listings.length === 0) { %>
+      <p class="empty-state">No properties match your search. Try widening your filters.</p>
+    <% } else { %>
+      <div class="property-grid">
+        <% listings.forEach(property => { %>
+          <%- include("partials/property-card", { property, savedIds }) %>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<%- include("partials/foot") %>

@@ -1,0 +1,52 @@
+<%- include("partials/head") %>
+<%- include("partials/nav") %>
+
+<main>
+  <section class="section auth-section">
+    <div class="auth-card">
+      <h1>Create an Account</h1>
+      <form action="/register" method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" minlength="6" required>
+        </div>
+        <div class="form-group form-check-group">
+          <label class="radio-option">
+            <input type="radio" name="role" value="user" checked>
+            I'm looking for a property
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="role" value="agent">
+            I'm an agent listing properties
+          </label>
+        </div>
+        <div class="form-group" id="agencyGroup" style="display: none;">
+          <label for="agency_name">Agency Name (optional)</label>
+          <input type="text" id="agency_name" name="agency_name">
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </form>
+      <p class="auth-switch">Already have an account? <a href="/login">Log in</a></p>
+    </div>
+  </section>
+</main>
+
+<script>
+  const roleInputs = document.querySelectorAll('input[name="role"]');
+  const agencyGroup = document.getElementById("agencyGroup");
+  roleInputs.forEach((input) => {
+    input.addEventListener("change", () => {
+      agencyGroup.style.display = document.querySelector('input[name="role"]:checked').value === "agent" ? "block" : "none";
+    });
+  });
+</script>
+
+<%- include("partials/foot") %>

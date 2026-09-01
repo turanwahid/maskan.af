@@ -1,0 +1,20 @@
+<%- include("partials/head") %>
+<%- include("partials/nav") %>
+
+<main>
+  <section class="section">
+    <h1 class="section-title">Your Saved Listings</h1>
+
+    <% if (listings.length === 0) { %>
+      <p class="empty-state">You haven't saved any listings yet. <a href="/listings">Browse listings</a>.</p>
+    <% } else { %>
+      <div class="property-grid">
+        <% listings.forEach(property => { %>
+          <%- include("partials/property-card", { property, savedIds: new Set(listings.map(l => l.id)) }) %>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<%- include("partials/foot") %>

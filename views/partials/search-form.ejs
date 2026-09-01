@@ -1,0 +1,47 @@
+<form class="search-form" action="/listings" method="GET">
+  <div class="search-field">
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" placeholder="e.g. Zurich" value="<%= (typeof query !== 'undefined' && query.city) || '' %>">
+  </div>
+
+  <div class="search-field">
+    <label for="canton">Canton</label>
+    <select id="canton" name="canton">
+      <option value="">Any</option>
+      <% cantons.forEach(c => { %>
+        <option value="<%= c %>" <%= (typeof query !== "undefined" && query.canton === c) ? "selected" : "" %>><%= c %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="search-field">
+    <label for="type">Type</label>
+    <select id="type" name="type">
+      <option value="">Any</option>
+      <% types.forEach(t => { %>
+        <option value="<%= t %>" <%= (typeof query !== "undefined" && query.type === t) ? "selected" : "" %>><%= t %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="search-field">
+    <label for="listing_type">Sale / Rent</label>
+    <select id="listing_type" name="listing_type">
+      <option value="">Any</option>
+      <option value="sale" <%= (typeof query !== "undefined" && query.listing_type === "sale") ? "selected" : "" %>>For Sale</option>
+      <option value="rent" <%= (typeof query !== "undefined" && query.listing_type === "rent") ? "selected" : "" %>>For Rent</option>
+    </select>
+  </div>
+
+  <div class="search-field">
+    <label for="bedrooms">Min. Bedrooms</label>
+    <input type="number" id="bedrooms" name="bedrooms" min="0" value="<%= (typeof query !== 'undefined' && query.bedrooms) || '' %>">
+  </div>
+
+  <div class="search-field">
+    <label for="max_price">Max Price (CHF)</label>
+    <input type="number" id="max_price" name="max_price" min="0" step="1000" value="<%= (typeof query !== 'undefined' && query.max_price) || '' %>">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>

@@ -1,0 +1,49 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main>
+  <section class="section">
+    <div class="admin-header">
+      <h1 class="section-title">My Listings</h1>
+      <a href="/agent/new" class="btn btn-primary">+ Add Property</a>
+    </div>
+
+    <% if (listings.length === 0) { %>
+      <p class="empty-state">You haven't listed any properties yet. <a href="/agent/new">Add your first listing</a>.</p>
+    <% } else { %>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>City</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Featured</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% listings.forEach(property => { %>
+              <tr>
+                <td><a href="/listings/<%= property.id %>"><%= property.title %></a></td>
+                <td><%= property.city %>, <%= property.canton %></td>
+                <td><%= property.type %> (<%= property.listing_type %>)</td>
+                <td>CHF <%= property.price.toLocaleString("en-CH") %></td>
+                <td><%= property.featured ? "★" : "" %></td>
+                <td class="admin-actions">
+                  <a href="/agent/<%= property.id %>/edit" class="link-btn">Edit</a>
+                  <form action="/agent/<%= property.id %>/delete" method="POST" class="inline-form" onsubmit="return confirm('Delete this property?')">
+                    <button type="submit" class="link-btn link-btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </section>
+</main>
+
+<%- include("../partials/foot") %>

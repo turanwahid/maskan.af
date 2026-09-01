@@ -1,0 +1,98 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main>
+  <section class="section">
+    <h1 class="section-title"><%= property ? "Edit Property" : "New Property" %></h1>
+
+    <form action="<%= property ? `/admin/${property.id}/edit` : '/admin/new' %>" method="POST" class="admin-form">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="<%= property ? property.title : '' %>" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4" required><%= property ? property.description : '' %></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select id="type" name="type" required>
+            <% types.forEach(t => { %>
+              <option value="<%= t %>" <%= property && property.type === t ? "selected" : "" %>><%= t %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="listing_type">Sale / Rent</label>
+          <select id="listing_type" name="listing_type" required>
+            <option value="sale" <%= property && property.listing_type === "sale" ? "selected" : "" %>>For Sale</option>
+            <option value="rent" <%= property && property.listing_type === "rent" ? "selected" : "" %>>For Rent</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price (CHF)</label>
+          <input type="number" id="price" name="price" min="0" value="<%= property ? property.price : '' %>" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" value="<%= property ? property.city : '' %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="canton">Canton</label>
+          <select id="canton" name="canton" required>
+            <% cantons.forEach(c => { %>
+              <option value="<%= c %>" <%= property && property.canton === c ? "selected" : "" %>><%= c %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="postcode">Postcode</label>
+          <input type="text" id="postcode" name="postcode" value="<%= property ? property.postcode : '' %>" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="bedrooms">Bedrooms</label>
+          <input type="number" id="bedrooms" name="bedrooms" min="0" value="<%= property ? property.bedrooms : 0 %>">
+        </div>
+
+        <div class="form-group">
+          <label for="bathrooms">Bathrooms</label>
+          <input type="number" id="bathrooms" name="bathrooms" min="0" value="<%= property ? property.bathrooms : 0 %>">
+        </div>
+
+        <div class="form-group">
+          <label for="area_sqm">Area (m&sup2;)</label>
+          <input type="number" id="area_sqm" name="area_sqm" min="0" value="<%= property ? property.area_sqm : '' %>" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="image_url">Image URL</label>
+        <input type="url" id="image_url" name="image_url" value="<%= property ? property.image_url : '' %>" required>
+      </div>
+
+      <div class="form-group form-check">
+        <label>
+          <input type="checkbox" name="featured" value="1" <%= property && property.featured ? "checked" : "" %>>
+          Feature on homepage
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary"><%= property ? "Save Changes" : "Create Property" %></button>
+    </form>
+  </section>
+</main>
+
+<%- include("../partials/foot") %>

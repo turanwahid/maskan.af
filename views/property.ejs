@@ -1,0 +1,77 @@
+<%- include("partials/head") %>
+<%- include("partials/nav") %>
+
+<main>
+  <section class="section property-detail">
+    <a href="/listings" class="back-link">&larr; Back to listings</a>
+
+    <div class="property-detail-grid">
+      <div class="property-detail-image" style="background-image: url('<%= property.image_url %>')">
+        <span class="property-badge"><%= property.listing_type === "rent" ? "For Rent" : "For Sale" %></span>
+      </div>
+
+      <div class="property-detail-info">
+        <h1><%= property.title %></h1>
+        <p class="property-location">📍 <%= property.city %>, <%= property.canton %> — <%= property.postcode %></p>
+        <div class="property-price-large">
+          CHF <%= property.price.toLocaleString("en-CH") %><%= property.listing_type === "rent" ? " / month" : "" %>
+        </div>
+
+        <div class="property-meta-grid">
+          <div><span class="meta-label">Type</span><%= property.type %></div>
+          <div><span class="meta-label">Bedrooms</span><%= property.bedrooms %></div>
+          <div><span class="meta-label">Bathrooms</span><%= property.bathrooms %></div>
+          <div><span class="meta-label">Area</span><%= property.area_sqm %> m&sup2;</div>
+        </div>
+
+        <p class="property-description"><%= property.description %></p>
+
+        <% if (currentUser) { %>
+          <form action="/listings/<%= property.id %>/save" method="POST">
+            <button type="submit" class="btn <%= isSaved ? 'btn-secondary' : 'btn-primary' %>">
+              <%= isSaved ? "★ Saved" : "☆ Save Listing" %>
+            </button>
+          </form>
+        <% } else { %>
+          <a href="/login" class="btn btn-primary">Log in to save this listing</a>
+        <% } %>
+
+        <% if (agent) { %>
+          <div class="inquiry-card">
+            <h3>Listed by <%= agent.name %><%= agent.agency_name ? ` — ${agent.agency_name}` : "" %></h3>
+            <p class="property-location">
+              <a href="mailto:<%= agent.email %>"><%= agent.email %></a><% if (agent.phone) { %> · <%= agent.phone %><% } %>
+            </p>
+          </div>
+        <% } %>
+
+        <div class="inquiry-card">
+          <h3>Contact the agent about this property</h3>
+          <form action="/listings/<%= property.id %>/inquire" method="POST" class="admin-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="inquiry-name">Name</label>
+                <input type="text" id="inquiry-name" name="name" value="<%= currentUser ? currentUser.name : '' %>" required>
+              </div>
+              <div class="form-group">
+                <label for="inquiry-email">Email</label>
+                <input type="email" id="inquiry-email" name="email" value="<%= currentUser ? currentUser.email : '' %>" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inquiry-phone">Phone (optional)</label>
+              <input type="tel" id="inquiry-phone" name="phone">
+            </div>
+            <div class="form-group">
+              <label for="inquiry-message">Message</label>
+              <textarea id="inquiry-message" name="message" rows="3" required>I'm interested in this property. Could you share more details or arrange a viewing?</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include("partials/foot") %>

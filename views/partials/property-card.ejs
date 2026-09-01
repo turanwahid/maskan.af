@@ -1,0 +1,20 @@
+<a href="/listings/<%= property.id %>" class="property-card">
+  <div class="property-image" style="background-image: url('<%= property.image_url %>')">
+    <span class="property-badge"><%= property.listing_type === "rent" ? "For Rent" : "For Sale" %></span>
+    <% if (typeof savedIds !== "undefined" && savedIds.has(property.id)) { %>
+      <span class="property-saved" title="Saved">&#9733;</span>
+    <% } %>
+  </div>
+  <div class="property-body">
+    <div class="property-price">
+      CHF <%= property.price.toLocaleString("en-CH") %><%= property.listing_type === "rent" ? " / month" : "" %>
+    </div>
+    <h3 class="property-title"><%= property.title %></h3>
+    <p class="property-location"><%= property.city %>, <%= property.canton %></p>
+    <div class="property-meta">
+      <span><%= property.bedrooms %> bd</span>
+      <span><%= property.bathrooms %> ba</span>
+      <span><%= property.area_sqm %> m&sup2;</span>
+    </div>
+  </div>
+</a>

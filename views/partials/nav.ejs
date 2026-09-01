@@ -1,0 +1,36 @@
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="/" class="logo">new<span>home</span><small>.ch</small></a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/listings">Listings</a></li>
+        <% if (currentUser) { %>
+          <li><a href="/account/saved">Saved</a></li>
+          <% if (currentUser.role === "agent" || currentUser.role === "admin") { %>
+            <li><a href="/agent">My Listings</a></li>
+            <li><a href="/agent/inquiries">Inquiries</a></li>
+          <% } %>
+          <% if (currentUser.role === "admin") { %>
+            <li><a href="/admin">Admin</a></li>
+          <% } %>
+          <li>
+            <form action="/logout" method="POST" class="inline-form">
+              <button type="submit" class="link-btn">Logout (<%= currentUser.name %>)</button>
+            </form>
+          </li>
+        <% } else { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register" class="btn btn-primary btn-sm">Sign Up</a></li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+
+  <% if (message) { %>
+    <div class="flash flash-<%= message.type %>"><%= message.text %></div>
+  <% } %>

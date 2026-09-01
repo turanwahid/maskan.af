@@ -1,0 +1,47 @@
+<%- include("partials/head") %>
+<%- include("partials/nav") %>
+
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Find your new home in Switzerland</h1>
+      <p>Browse apartments, houses, chalets and villas for sale and rent — from Zurich to Lugano.</p>
+      <%- include("partials/search-form", { query: {}, cantons, types }) %>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Featured Properties</h2>
+    <div class="property-grid">
+      <% featured.forEach(property => { %>
+        <%- include("partials/property-card", { property }) %>
+      <% }) %>
+    </div>
+    <div class="center">
+      <a href="/listings" class="btn btn-secondary">View All Listings</a>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <h2 class="section-title">Why newhome.ch</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏔️</div>
+        <h3>Nationwide Coverage</h3>
+        <p>Listings across every canton, from lakeside cities to alpine villages.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Powerful Search</h3>
+        <p>Filter by city, canton, price, property type and number of bedrooms.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <h3>Save Favorites</h3>
+        <p>Create a free account to save listings and find them later.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include("partials/foot") %>
