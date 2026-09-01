@@ -23,7 +23,7 @@ app.use("/api", cors(), express.json(), apiRouter);
 app.use(
   session({
     store: new SQLiteStore({ db: "sessions.db", dir: path.join(__dirname, "data") }),
-    secret: process.env.SESSION_SECRET || "newhome-ch-dev-secret",
+    secret: process.env.SESSION_SECRET || "maskan-dev-secret",
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 },
@@ -471,5 +471,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`newhome.ch running at http://localhost:${PORT}`);
+  console.log(`maskan running at http://localhost:${PORT}`);
 });

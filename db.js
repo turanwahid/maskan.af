@@ -73,15 +73,15 @@ function seed() {
 
     db.prepare(
       "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)"
-    ).run("Site Admin", "admin@newhome.ch", adminHash, "admin");
+    ).run("Site Admin", "admin@maskan.af", adminHash, "admin");
 
     db.prepare(
       "INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)"
-    ).run("Demo User", "demo@newhome.ch", demoHash, "user");
+    ).run("Demo User", "demo@maskan.af", demoHash, "user");
 
     db.prepare(
       "INSERT INTO users (name, email, password_hash, role, phone, agency_name) VALUES (?, ?, ?, ?, ?, ?)"
-    ).run("Anna Keller", "agent@newhome.ch", agentHash, "agent", "+41 79 555 12 34", "Keller Immobilien");
+    ).run("Anna Keller", "agent@maskan.af", agentHash, "agent", "+41 79 555 12 34", "Keller Immobilien");
   }
 
   const propertyCount = db.prepare("SELECT COUNT(*) AS n FROM properties").get().n;
